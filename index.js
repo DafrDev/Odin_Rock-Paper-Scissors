@@ -29,13 +29,7 @@ function getUserChoice() {
   return elementsRPS[userChoice];
 }
 
-const computerChoice = getComputerChoice();
-const userChoice = getUserChoice();
-
-console.log(`pc : ${computerChoice.name}`);
-console.log(`user : ${userChoice.name}`);
-
-function playRound() {
+function playRound(computerChoice, userChoice) {
   if (computerChoice.nb !== userChoice.nb) {
     if (
       (computerChoice.nb === rockNumber && userChoice.nb === scissorsNumber) ||
@@ -45,12 +39,45 @@ function playRound() {
       console.log(
         `Computer WINS !!! ${computerChoice.name} vs ${userChoice.name}`
       );
+
+      return 1;
     } else {
       console.log(`User WINS !!! ${computerChoice.name} vs ${userChoice.name}`);
+
+      return 2;
     }
   } else {
     console.log(`Match Null !!! ${computerChoice.name} vs ${userChoice.name}`);
+    return null;
   }
 }
 
-playRound();
+function game() {
+  let computerScore = 0;
+  let userScore = 0;
+
+  for (let rounds = 1; rounds <= 5; rounds++) {
+    const computerChoice = getComputerChoice();
+    const userChoice = getUserChoice();
+    console.log(`Round: ${rounds}`);
+    let winner = playRound(computerChoice, userChoice);
+
+    if (winner === 1) {
+      computerScore += 1;
+    } else if (winner === 2) {
+      userScore += 1;
+    }
+    console.log(`Score: Computer: ${computerScore} ------ User: ${userScore}`);
+    if (rounds >= 5) {
+      if (computerScore > userScore) {
+        console.log("Machine Win the Human !!!");
+      } else if (computerScore < userScore) {
+        console.log("The little Human Win the Machine !!!");
+      } else {
+        console.log("Game Null");
+      }
+    }
+  }
+}
+
+game();
