@@ -1,48 +1,56 @@
-const rock = 1;
-const paper = 2;
-const scissors = 3;
+const elementsRPS = [
+  { nb: 0, name: "Rock" },
+  { nb: 1, name: "Paper" },
+  { nb: 2, name: "Scissors" },
+];
+
+const rockNumber = elementsRPS[0].nb;
+const rockName = elementsRPS[0].name;
+
+const paperNumber = elementsRPS[1].nb;
+const paperName = elementsRPS[1].name;
+
+const scissorsNumber = elementsRPS[2].nb;
+const scissorsName = elementsRPS[2].name;
 
 function getComputerChoice() {
-  const computerChoice = Math.floor(Math.random() * 3) + 1;
+  const computerChoice = Math.floor(Math.random() * 3);
 
-  if (computerChoice === rock) {
-    return rock;
-  } else if (computerChoice === paper) {
-    return paper;
-  } else {
-    return scissors;
-  }
+  return elementsRPS[computerChoice];
+}
+
+function getUserChoice() {
+  const userChoice = Number(
+    prompt(
+      `Choice: ${rockName} = ${rockNumber} or ${paperName} = ${paperNumber} or ${scissorsName} = ${scissorsNumber}`
+    )
+  );
+
+  return elementsRPS[userChoice];
 }
 
 const computerChoice = getComputerChoice();
+const userChoice = getUserChoice();
 
-const userChoice = Number(
-  prompt("Choice: Rock = 1 - Paper = 2 - Scissors = 3")
-);
+console.log(`pc : ${computerChoice.name}`);
+console.log(`user : ${userChoice.name}`);
 
-console.log("Computer choice: " + computerChoice);
-console.log("User choice: " + userChoice);
-
-if (computerChoice !== userChoice) {
-  if (computerChoice === rock && userChoice == scissors) {
-    console.log("Pc: Rock > User: Scissors");
-    console.log("Computer WIN !!!");
-  } else if (computerChoice === rock && userChoice == paper) {
-    console.log("Pc: Rock < User: Paper");
-    console.log("User WIN !!!");
-  } else if (computerChoice === paper && userChoice === scissors) {
-    console.log("Pc: Paper < User: Scissors");
-    console.log("User WIN !!!");
-  } else if (computerChoice === paper && userChoice === rock) {
-    console.log("Pc: Paper > User: Rock");
-    console.log("Computer WIN !!!");
-  } else if (computerChoice === scissors && userChoice === paper) {
-    console.log("Pc: Scissors > User: Paper");
-    console.log("Computer WIN !!!");
-  } else if (computerChoice === scissors && userChoice === rock) {
-    console.log("Pc: Scissors < User: Rock");
-    console.log("User WIN !!!");
+function playRound() {
+  if (computerChoice.nb !== userChoice.nb) {
+    if (
+      (computerChoice.nb === rockNumber && userChoice.nb === scissorsNumber) ||
+      (computerChoice.nb === paperNumber && userChoice.nb === rockNumber) ||
+      (computerChoice.nb === scissorsNumber && userChoice.nb === paperNumber)
+    ) {
+      console.log(
+        `Computer WINS !!! ${computerChoice.name} vs ${userChoice.name}`
+      );
+    } else {
+      console.log(`User WINS !!! ${computerChoice.name} vs ${userChoice.name}`);
+    }
+  } else {
+    console.log(`Match Null !!! ${computerChoice.name} vs ${userChoice.name}`);
   }
-} else {
-  console.log("0 - 0");
 }
+
+playRound();
