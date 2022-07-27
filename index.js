@@ -1,3 +1,5 @@
+console.log("Working...");
+
 const elementsRPS = [
   { nb: 0, name: "Rock" },
   { nb: 1, name: "Paper" },
@@ -52,7 +54,8 @@ function playRound(computerChoice, userChoice) {
   }
 }
 
-function game() {
+function game(userChoice) {
+  console.log(userChoice);
   let computerScore = 0;
   let userScore = 0;
 
@@ -80,4 +83,22 @@ function game() {
   }
 }
 
-game();
+function getButtons() {
+  const rockBtn = document.querySelector("#rock");
+  const paperBtn = document.querySelector("#paper");
+  const scissorBtn = document.querySelector("#scissor");
+
+  const arrayOfButtons = [rockBtn, paperBtn, scissorBtn];
+
+  return arrayOfButtons;
+}
+
+function getBtnClickEvent(arrBtn) {
+  arrBtn.forEach(btn => {
+    btn.addEventListener("click", e => game(e.target.id));
+  });
+}
+
+const arrayOfButtons = getButtons();
+
+getBtnClickEvent(arrayOfButtons);
