@@ -21,12 +21,8 @@ function getComputerChoice() {
   return elementsRPS[computerChoice];
 }
 
-function getUserChoice() {
-  const userChoice = Number(
-    prompt(
-      `Choice: ${rockName} = ${rockNumber} or ${paperName} = ${paperNumber} or ${scissorsName} = ${scissorsNumber}`
-    )
-  );
+function getUserChoice(choice) {
+  const userChoice = Number(choice);
 
   return elementsRPS[userChoice];
 }
@@ -54,14 +50,13 @@ function playRound(computerChoice, userChoice) {
   }
 }
 
-function game(userChoice) {
-  console.log(userChoice);
+function game(usrChoice) {
   let computerScore = 0;
   let userScore = 0;
 
   for (let rounds = 1; rounds <= 5; rounds++) {
     const computerChoice = getComputerChoice();
-    const userChoice = getUserChoice();
+    const userChoice = getUserChoice(usrChoice);
     console.log(`Round: ${rounds}`);
     let winner = playRound(computerChoice, userChoice);
 
@@ -94,8 +89,8 @@ function getButtons() {
 }
 
 function getBtnClickEvent(arrBtn) {
-  arrBtn.forEach(btn => {
-    btn.addEventListener("click", e => game(e.target.id));
+  arrBtn.forEach((btn, index) => {
+    btn.addEventListener("click", () => game(index));
   });
 }
 
