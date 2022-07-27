@@ -50,30 +50,33 @@ function playRound(computerChoice, userChoice) {
   }
 }
 
-function game(usrChoice) {
-  let computerScore = 0;
-  let userScore = 0;
+let computerScore = 0;
+let userScore = 0;
+let gameRounds = 3;
 
-  for (let rounds = 1; rounds <= 5; rounds++) {
-    const computerChoice = getComputerChoice();
-    const userChoice = getUserChoice(usrChoice);
-    console.log(`Round: ${rounds}`);
-    let winner = playRound(computerChoice, userChoice);
+function game(usrChoice, round) {
+  const computerChoice = getComputerChoice();
+  const userChoice = getUserChoice(usrChoice);
 
-    if (winner === 1) {
-      computerScore += 1;
-    } else if (winner === 2) {
-      userScore += 1;
-    }
-    console.log(`Score: Computer: ${computerScore} ------ User: ${userScore}`);
-    if (rounds >= 5) {
-      if (computerScore > userScore) {
-        console.log("Machine Win the Human !!!");
-      } else if (computerScore < userScore) {
-        console.log("The little Human Win the Machine !!!");
-      } else {
-        console.log("Game Null");
-      }
+  console.log(`Round: ${round}`);
+
+  let winner = playRound(computerChoice, userChoice);
+
+  if (winner === 1) {
+    computerScore++;
+  } else if (winner === 2) {
+    userScore++;
+  }
+  console.log(`Score: Computer: ${computerScore} ------ User: ${userScore}`);
+
+  if (round == gameRounds) {
+    console.log("End of the game !!!");
+    if (computerScore > userScore) {
+      console.log("Machine Win the Human !!!");
+    } else if (computerScore < userScore) {
+      console.log("The little Human Win the Machine !!!");
+    } else {
+      console.log("Game Null");
     }
   }
 }
@@ -89,8 +92,16 @@ function getButtons() {
 }
 
 function getBtnClickEvent(arrBtn) {
+  let round = 1;
   arrBtn.forEach((btn, index) => {
-    btn.addEventListener("click", () => game(index));
+    btn.addEventListener("click", () => {
+      game(index, round);
+
+      if (round == gameRounds) {
+        round = 0;
+      }
+      round++;
+    });
   });
 }
 
