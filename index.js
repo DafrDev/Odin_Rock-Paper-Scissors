@@ -1,19 +1,14 @@
 console.log("Working...");
 
 const elementsRPS = [
-  { nb: 0, name: "Rock" },
-  { nb: 1, name: "Paper" },
-  { nb: 2, name: "Scissors" },
+  { nb: 0, name: "Rock", src: "./images/rock.png" },
+  { nb: 1, name: "Paper", src: "./images/paper.png" },
+  { nb: 2, name: "Scissors", src: "./images/scissors.png" },
 ];
 
-const rockNumber = elementsRPS[0].nb;
-const rockName = elementsRPS[0].name;
-
-const paperNumber = elementsRPS[1].nb;
-const paperName = elementsRPS[1].name;
-
-const scissorsNumber = elementsRPS[2].nb;
-const scissorsName = elementsRPS[2].name;
+const rock = elementsRPS[0];
+const paper = elementsRPS[1];
+const scissors = elementsRPS[2];
 
 function getComputerChoice() {
   const computerChoice = Math.floor(Math.random() * 3);
@@ -30,9 +25,9 @@ function getUserChoice(choice) {
 function playRound(computerChoice, userChoice) {
   if (computerChoice.nb !== userChoice.nb) {
     if (
-      (computerChoice.nb === rockNumber && userChoice.nb === scissorsNumber) ||
-      (computerChoice.nb === paperNumber && userChoice.nb === rockNumber) ||
-      (computerChoice.nb === scissorsNumber && userChoice.nb === paperNumber)
+      (computerChoice.nb === rock.nb && userChoice.nb === scissors.nb) ||
+      (computerChoice.nb === paper.nb && userChoice.nb === rock.nb) ||
+      (computerChoice.nb === scissors.nb && userChoice.nb === paper.nb)
     ) {
       console.log(
         `Computer WINS !!! ${computerChoice.name} vs ${userChoice.name}`
