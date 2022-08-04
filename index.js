@@ -10,10 +10,10 @@ const rock = elementsRPS[0];
 const paper = elementsRPS[1];
 const scissors = elementsRPS[2];
 
-function getComputerChoice() {
-  const computerChoice = Math.floor(Math.random() * 3);
+function getMachineChoice() {
+  const machineChoice = Math.floor(Math.random() * 3);
 
-  return elementsRPS[computerChoice];
+  return elementsRPS[machineChoice];
 }
 
 function getUserChoice(choice) {
@@ -22,25 +22,28 @@ function getUserChoice(choice) {
   return elementsRPS[userChoice];
 }
 
-function playRound(computerChoice, userChoice) {
-  if (computerChoice.nb !== userChoice.nb) {
+function playRound(machineChoice, userChoice) {
+  document.querySelector(".human").src = userChoice.src;
+  document.querySelector(".machine").src = machineChoice.src;
+
+  if (machineChoice.nb !== userChoice.nb) {
     if (
-      (computerChoice.nb === rock.nb && userChoice.nb === scissors.nb) ||
-      (computerChoice.nb === paper.nb && userChoice.nb === rock.nb) ||
-      (computerChoice.nb === scissors.nb && userChoice.nb === paper.nb)
+      (machineChoice.nb === rock.nb && userChoice.nb === scissors.nb) ||
+      (machineChoice.nb === paper.nb && userChoice.nb === rock.nb) ||
+      (machineChoice.nb === scissors.nb && userChoice.nb === paper.nb)
     ) {
       console.log(
-        `Computer WINS !!! ${computerChoice.name} vs ${userChoice.name}`
+        `Computer WINS !!! ${machineChoice.name} vs ${userChoice.name}`
       );
 
       return 1;
     } else {
-      console.log(`User WINS !!! ${computerChoice.name} vs ${userChoice.name}`);
+      console.log(`User WINS !!! ${machineChoice.name} vs ${userChoice.name}`);
 
       return 2;
     }
   } else {
-    console.log(`Match Null !!! ${computerChoice.name} vs ${userChoice.name}`);
+    console.log(`Match Null !!! ${machineChoice.name} vs ${userChoice.name}`);
     return null;
   }
 }
@@ -50,12 +53,12 @@ let userScore = 0;
 let gameRounds = 3;
 
 function game(usrChoice, round) {
-  const computerChoice = getComputerChoice();
+  const machineChoice = getMachineChoice();
   const userChoice = getUserChoice(usrChoice);
 
   console.log(`Round: ${round}`);
 
-  let winner = playRound(computerChoice, userChoice);
+  let winner = playRound(userChoice, machineChoice);
 
   if (winner === 1) {
     computerScore++;
