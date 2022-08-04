@@ -16,11 +16,7 @@ function getMachineChoice() {
   return elementsRPS[machineChoice];
 }
 
-function getUserChoice(choice) {
-  const userChoice = Number(choice);
-
-  return elementsRPS[userChoice];
-}
+const getUserChoice = choice => elementsRPS[choice];
 
 function createImgElement(choice, index) {
   let nameOfChoicer;
@@ -55,18 +51,18 @@ function playRound(userChoice, machineChoice) {
       (machineChoice.nb === paper.nb && userChoice.nb === rock.nb) ||
       (machineChoice.nb === scissors.nb && userChoice.nb === paper.nb)
     ) {
-      console.log(
-        `machine WINS !!! ${machineChoice.name} vs ${userChoice.name}`
-      );
-
-      return 1;
-    } else {
-      console.log(`User WINS !!! ${machineChoice.name} vs ${userChoice.name}`);
+      //machine win
+      drawColorWinnerLoser("machine");
 
       return 2;
+    } else {
+      // user win
+      drawColorWinnerLoser("human");
+      return 1;
     }
   } else {
-    console.log(`Match Null !!! ${machineChoice.name} vs ${userChoice.name}`);
+    //  match null
+    drawColorWinnerLoser(null);
     return null;
   }
 }
@@ -85,6 +81,23 @@ function drawRoundOnScreen(round) {
   roundCounter.textContent = counter;
 }
 
+function drawColorWinnerLoser(winnerName) {
+  let winner = ["human", "machine"];
+
+  winner.forEach(name => {
+    const imageContainer = document.querySelector(`.${name}`);
+    if (winnerName === name) {
+      imageContainer.style.background = "#689775";
+    } else {
+      imageContainer.style.background = "#A33327";
+    }
+
+    if (winnerName == null) {
+      imageContainer.style.background = "orange";
+    }
+  });
+}
+
 let machineScore = 0;
 let userScore = 0;
 let gameRounds = 3;
@@ -95,9 +108,9 @@ function game(usrChoice, round) {
 
   let winner = playRound(userChoice, machineChoice);
 
-  if (winner === 1) {
+  if (winner === 2) {
     machineScore++;
-  } else if (winner === 2) {
+  } else if (winner === 1) {
     userScore++;
   }
 
