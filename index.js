@@ -22,9 +22,32 @@ function getUserChoice(choice) {
   return elementsRPS[userChoice];
 }
 
-function playRound(machineChoice, userChoice) {
-  document.querySelector(".human").src = userChoice.src;
-  document.querySelector(".machine").src = machineChoice.src;
+function createImgElement(choice, index) {
+  let nameOfChoicer;
+  if (index == 1) {
+    nameOfChoicer = "human";
+  } else {
+    nameOfChoicer = "machine";
+  }
+
+  const choicedImageContainer = document.querySelector(`.${nameOfChoicer}`);
+  const choiceImage = document.createElement("img");
+  choiceImage.src = choice.src;
+
+  const existImg = document
+    .querySelector(`.${nameOfChoicer}`)
+    .querySelector("img");
+
+  if (existImg) {
+    choicedImageContainer.replaceChild(choiceImage, existImg);
+  } else {
+    choicedImageContainer.appendChild(choiceImage);
+  }
+}
+
+function playRound(userChoice, machineChoice) {
+  createImgElement(userChoice, 1);
+  createImgElement(machineChoice);
 
   if (machineChoice.nb !== userChoice.nb) {
     if (
