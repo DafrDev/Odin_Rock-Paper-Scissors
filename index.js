@@ -56,7 +56,7 @@ function playRound(userChoice, machineChoice) {
       (machineChoice.nb === scissors.nb && userChoice.nb === paper.nb)
     ) {
       console.log(
-        `Computer WINS !!! ${machineChoice.name} vs ${userChoice.name}`
+        `machine WINS !!! ${machineChoice.name} vs ${userChoice.name}`
       );
 
       return 1;
@@ -71,7 +71,21 @@ function playRound(userChoice, machineChoice) {
   }
 }
 
-let computerScore = 0;
+function drawScoreOnScreen(usrScore, mchScore) {
+  const humanScore = document.querySelector(".humanScore");
+  const machineScore = document.querySelector(".machineScore");
+
+  humanScore.textContent = usrScore;
+  machineScore.textContent = mchScore;
+}
+
+function drawRoundOnScreen(round) {
+  let counter = round--;
+  const roundCounter = document.querySelector(".roundCounter");
+  roundCounter.textContent = counter;
+}
+
+let machineScore = 0;
 let userScore = 0;
 let gameRounds = 3;
 
@@ -79,22 +93,24 @@ function game(usrChoice, round) {
   const machineChoice = getMachineChoice();
   const userChoice = getUserChoice(usrChoice);
 
-  console.log(`Round: ${round}`);
-
   let winner = playRound(userChoice, machineChoice);
 
   if (winner === 1) {
-    computerScore++;
+    machineScore++;
   } else if (winner === 2) {
     userScore++;
   }
-  console.log(`Score: Computer: ${computerScore} ------ User: ${userScore}`);
+
+  drawScoreOnScreen(userScore, machineScore);
+  drawRoundOnScreen(round);
 
   if (round == gameRounds) {
     console.log("End of the game !!!");
-    if (computerScore > userScore) {
+    machineScore = 0;
+    userScore = 0;
+    if (machineScore > userScore) {
       console.log("Machine Win the Human !!!");
-    } else if (computerScore < userScore) {
+    } else if (machineScore < userScore) {
       console.log("The little Human Win the Machine !!!");
     } else {
       console.log("Game Null");
