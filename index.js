@@ -100,7 +100,7 @@ function drawColorWinnerLoser(winnerName) {
 
 let machineScore = 0;
 let userScore = 0;
-let gameRounds = 3;
+let gameRounds = 5;
 
 function game(usrChoice, round) {
   const machineChoice = getMachineChoice();
